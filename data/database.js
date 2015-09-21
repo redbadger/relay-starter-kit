@@ -19,6 +19,7 @@ var widgets = ['What\'s-it', 'Who\'s-it', 'How\'s-it'].map((name, i) => {
   var widget = new Widget();
   widget.name = name;
   widget.id = `${i}`;
+  widget.enabled = true;
   return widget;
 });
 
@@ -28,6 +29,12 @@ module.exports = {
   getViewer: () => viewer,
   getWidget: (id) => widgets.find(w => w.id === id),
   getWidgets: () => widgets,
+  toggleWidgetEnable: (id) => {
+    var localWidget = widgets.find(w => w.id === id);
+    if (!localWidget) throw new Error('Unable to locate widget with id ${id}');
+    localWidget.enabled = !localWidget.enabled;
+    return localWidget;
+  },
   User,
   Widget,
 };
